@@ -91,14 +91,54 @@
 # lista = [4, 5, 7, 8]
 # print(max(lista))
 # print(min(lista))
-# print(sum(lista))
-# print(sorted(lista))
+# # print(sum(lista))
+# # print(sorted(lista))
+#
+# people = ["Mateusz", "Olaf", "Bartek", "Andrzej"]
+# # print(sorted(people))
+# # people.remove("Andrzej")
+#
+# lista_zakupów = ["jajka", "mleko", "chleb", ["John", "Paul"]]
+#
+# print(lista_zakupów[-1][1])
+# print(lista_zakupów[len(lista_zakupów) - 1][0])
 
-people = ["Mateusz", "Olaf", "Bartek", "Andrzej"]
-# print(sorted(people))
-# people.remove("Andrzej")
 
-lista_zakupów = ["jajka", "mleko", "chleb", ["John", "Paul"]]
+#### Pętle
+#
+# lista_zakupow = ["sok", "woda", "tofu", "marchew", "jarmuż"]
+#
+# for i in range(len(lista_zakupow)):
+#     print(lista_zakupow[i])
+#     # pass    przejdz przez to
+#
+# # for i in range(5):
+# #     print(lista_zakupow[i])
+# #
+# # for i in range(4, 31, 3):  # od, do, krok
+# #     print(i)
+#
+# print("koniec")
 
-print(lista_zakupów[-1][1])
-print(lista_zakupów[len(lista_zakupów) - 1][0])
+
+### ZADANIA
+
+# lista_imion = ["Kamil", "Iza", "Monika", "Grzegorz", "Jan"]
+# for imie in lista_imion:
+#     if imie[-1] == "a":
+#         print(f'{imie} to imię żeńskie')
+#     else:
+#         print(f"{imie} to imię męskie")
+
+uzytkownicy = ["Marek", "Nowy", "piesek", "pixi", "kuba"]
+
+while True:
+    nazwa = input("Podaj nazwę użytkownika: ")
+    if nazwa in uzytkownicy:
+        print("Nazwa zajęta, spróbuj jeszcze raz")
+    else:
+        print(f"Nazwa jest wolna, twoja nazwa użytkownika: {nazwa}")
+        uzytkownicy.append(nazwa)
+        break
+
+print(uzytkownicy)
