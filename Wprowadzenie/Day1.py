@@ -34,9 +34,9 @@
 # else:
 #     print("Hasło poprawne")
 #
-
-zarobki_brutto = int(input("Podaj zarobki brutto: "))
-liczba_dzieci = int(input("Podaj liczbę dzieci: "))
+#
+# zarobki_brutto = int(input("Podaj zarobki brutto: "))
+# liczba_dzieci = int(input("Podaj liczbę dzieci: "))
 
 
 
@@ -49,20 +49,40 @@ liczba_dzieci = int(input("Podaj liczbę dzieci: "))
 
 #Rozwiązanie B
 
-if zarobki_brutto < 3000:
-    podatek = 0
-elif zarobki_brutto >= 3000 and zarobki_brutto < 5000:
-    podatek = 0.1
-else:
-    podatek = 0.2
+# if zarobki_brutto < 3000:
+#     podatek = 0
+# elif zarobki_brutto >= 3000 and zarobki_brutto < 5000:
+#     podatek = 0.1
+# else:
+#     podatek = 0.2
+#
+# # Dodatek na dzieci (tylko na 2 i 3 dziecko)
+# if liczba_dzieci < 2:
+#     dodatek_na_dziecko = 0
+# else:
+#     dodatek_na_dziecko = 500 * min(liczba_dzieci - 1, 2)
+#
+# # Zarobki netto
+# zarobki_netto = zarobki_brutto - zarobki_brutto * podatek + dodatek_na_dziecko
+#
+# print(f"Zarobki netto: {zarobki_netto} zł")
 
-# Dodatek na dzieci (tylko na 2 i 3 dziecko)
-if liczba_dzieci < 2:
-    dodatek_na_dziecko = 0
-else:
-    dodatek_na_dziecko = 500 * min(liczba_dzieci - 1, 2)
+# Zadanie 2
 
-# Zarobki netto
-zarobki_netto = zarobki_brutto - zarobki_brutto * podatek + dodatek_na_dziecko
+typ = input("Podaj typ mieszkania (cegła/płyta): ").lower()
 
-print(f"Zarobki netto: {zarobki_netto} zł")
+if typ !="cegła" and typ != "płyta":
+    print("Nieznany typ mieszkania")
+    exit()
+
+powierzchnia = float(input("Powierzchnia: "))
+
+if typ == "cegła":
+    koszt_dzień = powierzchnia * 0.3
+elif typ == "płyta":
+    koszt_dzień = powierzchnia * 0.5
+
+koszt_miesiac = koszt_dzień * 30
+
+print(koszt_miesiac)
+
