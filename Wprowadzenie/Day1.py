@@ -1,3 +1,4 @@
+# @formatter:on
 # print("Witaj")
 # # imie = input("Podaj imię")
 #
@@ -39,15 +40,14 @@
 # liczba_dzieci = int(input("Podaj liczbę dzieci: "))
 
 
-
-#Rozwiazanie A
+# Rozwiazanie A
 # dodatek_na_dziecko = 500
 # podatek1 = 0.2
 # podatek2 = 0.1
 # zarobki = (zarobki_brutto - (zarobki_brutto * podatek1) ) + liczba_dzieci * dodatek_na_dziecko
 # print(zarobki, zarobki_brutto - (zarobki_brutto * podatek1) )
 
-#Rozwiązanie B
+# Rozwiązanie B
 
 # if zarobki_brutto < 3000:
 #     podatek = 0
@@ -69,20 +69,36 @@
 
 # Zadanie 2
 
-typ = input("Podaj typ mieszkania (cegła/płyta): ").lower()
+# typ = input("Podaj typ mieszkania (cegła/płyta): ").lower()
+#
+# if typ !="cegła" and typ != "płyta":
+#     print("Nieznany typ mieszkania")
+#     exit()
+#
+# powierzchnia = float(input("Powierzchnia: "))
+#
+# if typ == "cegła":
+#     koszt_dzień = powierzchnia * 0.3
+# elif typ == "płyta":
+#     koszt_dzień = powierzchnia * 0.5
+#
+# koszt_miesiac = koszt_dzień * 30
+#
+# print(koszt_miesiac)
 
-if typ !="cegła" and typ != "płyta":
-    print("Nieznany typ mieszkania")
-    exit()
+#### LISTY
 
-powierzchnia = float(input("Powierzchnia: "))
+# lista = [4, 5, 7, 8]
+# print(max(lista))
+# print(min(lista))
+# print(sum(lista))
+# print(sorted(lista))
 
-if typ == "cegła":
-    koszt_dzień = powierzchnia * 0.3
-elif typ == "płyta":
-    koszt_dzień = powierzchnia * 0.5
+people = ["Mateusz", "Olaf", "Bartek", "Andrzej"]
+# print(sorted(people))
+# people.remove("Andrzej")
 
-koszt_miesiac = koszt_dzień * 30
+lista_zakupów = ["jajka", "mleko", "chleb", ["John", "Paul"]]
 
-print(koszt_miesiac)
-
+print(lista_zakupów[-1][1])
+print(lista_zakupów[len(lista_zakupów) - 1][0])
