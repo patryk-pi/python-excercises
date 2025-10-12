@@ -34,7 +34,7 @@ poprawny_pin = 1234
 #     wprowadzony_pin = int(input("Podaj PIN: "))
 #     if wprowadzony_pin == poprawny_pin:
 #         print(poprawny_pin, "Zapraszam do wypłaty gotówki")
-#         break
+#         exit()
 #     else:
 #         print(f"Pin niepoprawny, zostało {2 - i} prób")
 #         if i == 2:
@@ -44,12 +44,20 @@ liczba_prob = 3
 
 while True:
     wprowadzony_pin = (input("Podaj PIN: "))
+
     if wprowadzony_pin == poprawny_pin:
         print(poprawny_pin, "Zapraszam do wypłaty gotówki")
         break
+
+    elif wprowadzony_pin == 666:
+        print("Podano kod serwisowy")
+        print("Rozpoczęto logowanie i nagrywanie")
+
+
     else:
         liczba_prob -= 1
         print(f"Pin niepoprawny, zostało {liczba_prob}")
+
         if liczba_prob == 0:
             print("Karta zablokowana")
-            break
+            exit()
