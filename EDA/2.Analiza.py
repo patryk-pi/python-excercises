@@ -34,10 +34,16 @@ print(f'Liczba kolumn: {df.shape[1]}')
 # podglad danych
 print(f'Pierwsze 5 piw: {df.head()}')
 print(f'\n Ostatnie 5 piw: {df.tail()}')
+print(f"\n Describe")
+print(df.describe())
 
 # typy danych
-print(df.info())
+print(f"\n {df.info()}")
 
 # statystyki numeryczne
 kolumny_numeryczne = df.select_dtypes(include = 'number')
 print(kolumny_numeryczne)
+
+if len(kolumny_numeryczne) > 0:
+    print('Statystyki dla cech numerycznych:')
+    print(kolumny_numeryczne.describe())
