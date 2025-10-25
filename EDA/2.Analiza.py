@@ -47,3 +47,21 @@ print(kolumny_numeryczne)
 if len(kolumny_numeryczne) > 0:
     print('Statystyki dla cech numerycznych:')
     print(kolumny_numeryczne.describe())
+
+# statystyki kategoryczne
+print('\n' + "=" * 50)
+print('Statystyki kategoryczne')
+print('\n' + "=" * 50)
+
+# kolumny_tekstowe = df.select_dtypes(exclude = 'number')
+kolumny_tekstowe = df.select_dtypes(include = 'object')
+print(kolumny_tekstowe)
+
+if len(kolumny_tekstowe) > 0:
+    for kolumna in kolumny_tekstowe:
+        print(f"\n Kolumna: {kolumna}")
+        print(f"Liczba unikalnych wartości: {len(df[kolumna].unique())}")
+        print('3 najczestsze wartości')
+        print(df[kolumna].value_counts().head(3))
+else:
+    print("Brak kolumnt kategorycznych w danych")
