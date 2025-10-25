@@ -86,3 +86,41 @@ else:
     print("Wszystkie dane poprawne")
 
 # wizualizacje
+
+print('\n' + "=" * 50)
+print('Tworzenie wykresów')
+print('\n' + "=" * 50)
+
+# wykres 1 zawartosci alkoholu
+if 'alkohol' in df.columns:
+    plt.figure(figsize = (10, 6))
+    plt.subplot(1, 2, 1)
+
+    plt.hist(df['alkohol'])
+    plt.title('Histogram of alkohol')
+    plt.xlabel('Alkohol w %')
+    plt.ylabel('Liczba piw')
+    plt.show()
+
+if 'alkohol' in df.columns and False:
+    plt.figure(figsize = (10, 6))
+    plt.subplot(1, 2, 1)  # z lewej
+    df['alkohol'].hist(bins = 10, color = 'lightblue', edgecolor = 'black')
+    plt.title('Rozklad zawartosci alkoholu')
+    plt.xlabel('Zawartosc alko w (%)')
+    plt.ylabel('Liczba piw')
+    plt.subplot(1, 2, 2)  # z prawej
+    df.boxplot(column = 'alkohol', grid = False)
+    plt.title('Boxplot: Zawartość alkoholu')
+    plt.tight_layout()
+    plt.show()
+
+# wykres 2 rozklad ocen
+
+plt.figure(figsize = (8, 5))
+df['ocena'].hist(bins = 8, color = 'lightblue', alpha = 0.8)
+plt.title('Rozkład ocen piw')
+plt.xlabel('Ocena piw 1-5')
+plt.ylabel('Liczba piw')
+plt.grid(axis = 'y', alpha = 0.3)
+plt.show()
