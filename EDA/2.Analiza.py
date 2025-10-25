@@ -140,3 +140,12 @@ if 'alkohol' in df.columns and 'ocena' in df.columns:
     plt.plot(df['alkohol'], p(df['alkohol']), "r--", alpha = 0.8)
 
     plt.show()
+
+# Wykres 5: Macierz korelacji (jeśli są przynajmniej 2 kolumny numeryczne)
+if len(kolumny_numeryczne) >= 2:
+    plt.figure(figsize = (8, 6))
+    macierz_korelacji = df[kolumny_numeryczne].corr()
+    sns.heatmap(macierz_korelacji, annot = True, cmap = 'coolwarm', center = 0)
+    plt.title('Korelacje między cechami numerycznymi')
+    plt.tight_layout()
+    plt.show()
