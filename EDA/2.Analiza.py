@@ -149,3 +149,20 @@ if len(kolumny_numeryczne) >= 2:
     plt.title('Korelacje między cechami numerycznymi')
     plt.tight_layout()
     plt.show()
+
+# duplikaty
+
+print('\n' + "=" * 50)
+print('Analiza duplikatow')
+print('\n' + "=" * 50)
+
+# print(df.duplicated())
+# print(df['styl'].duplicated())
+
+duplikaty = df.duplicated()
+if duplikaty.sum() > 0:
+    print(f"Znaleziono {duplikaty.sum()} zduplikowanych wierszy")
+else:
+    print("Brak duplikatow")
+
+### PODSUMOWANIE
