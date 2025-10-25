@@ -124,3 +124,19 @@ plt.xlabel('Ocena piw 1-5')
 plt.ylabel('Liczba piw')
 plt.grid(axis = 'y', alpha = 0.3)
 plt.show()
+
+# Wykres 3: Zależność między alkoholem a oceną
+if 'alkohol' in df.columns and 'ocena' in df.columns:
+    plt.figure(figsize = (8, 6))
+    plt.scatter(df['alkohol'], df['ocena'], alpha = 0.6, s = 60, color = 'purple')
+    plt.title('Zależność między zawartością alkoholu a oceną')
+    plt.xlabel('Zawartość alkoholu (%)')
+    plt.ylabel('Ocena')
+    plt.grid(True, alpha = 0.3)
+
+    # linia trendu
+    z = np.polyfit(df['alkohol'], df['ocena'], 1)
+    p = np.poly1d(z)
+    plt.plot(df['alkohol'], p(df['alkohol']), "r--", alpha = 0.8)
+
+    plt.show()
