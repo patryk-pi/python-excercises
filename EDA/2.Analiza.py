@@ -65,3 +65,24 @@ if len(kolumny_tekstowe) > 0:
         print(df[kolumna].value_counts().head(3))
 else:
     print("Brak kolumnt kategorycznych w danych")
+
+# brakujące wartości
+print('\n' + "=" * 50)
+print('Brakujace wartosci')
+print('\n' + "=" * 50)
+
+print(df.isnull().sum())
+
+brakujace = df.isnull().sum().sum()
+
+if brakujace > 0:
+    print("Kolumny z brakującymi wartościami:")
+    for kolumna in df.columns:
+        if df[kolumna].isnull().sum() > 0:
+            braki_liczbowo = df[kolumna].isnull().sum()
+            braki_procentowo = (braki_liczbowo / len(df) * 100)
+            print(f"      {kolumna}: {braki_procentowo}")
+else:
+    print("Wszystkie dane poprawne")
+
+# wizualizacje
