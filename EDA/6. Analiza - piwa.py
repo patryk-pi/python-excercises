@@ -195,9 +195,9 @@ if 'alkohol' in df.columns and 'nazwa' in df.columns:
 
 print("\n" + "=" * 50)
 
-POKAZ_WYKRESY = True
+POKAZ_WYKRESY = False
 
-ZAPISZ_WYKRESY = True
+ZAPISZ_WYKRESY = False
 
 print("\n" + "=" * 50)
 print('ANALIZA OUTLIERÓW')
@@ -338,3 +338,47 @@ if all(col in df.columns for col in ['ocena', 'alkohol', 'styl']):
     print('\n Piwa z oceną > 4.0 i alkoholem < 6%')
 
     print(znajdz_piwa(df, min_ocena = 4, max_alcohol = 6))
+
+# ANALIZA KORELACJI I ZALEŻNOŚCI
+
+print("\n" + "=" * 50)
+print("Szczegółowa analiza korelacji i zależności")
+print("\n" + "=" * 50)
+
+if len(kolumny_numeryczne) >= 2:
+    print("Macierz korelacji")
+
+    macierz_korelacji = df[kolumny_numeryczne].corr()
+    print(macierz_korelacji.round(3))
+
+    # nagłowek do interpretacji korelacji
+    print('\n ===== INTERPRETACJA KORELACJI =====')
+    for i in range(len(macierz_korelacji.columns)):
+        for j in range(i + 1, len(macierz_korelacji.columns)):
+            kol1 = macierz_korelacji.columns[i]
+            kol2 = macierz_korelacji.columns[j]
+            korelacja = macierz_korelacji.iloc[i, j]
+
+            # interpretacja siły korelacji
+
+            if abs(korelacja) > 0.7:
+                silna = "BARDZO SILNA"
+            elif abs(korelacja) >= 0.5:
+                silna = "SILNA"
+            elif abs(korelacja) >= 0.3:
+                silna = 'UMIARKOWANA'
+            else:
+                silna = "SŁĄBY ZWIĄZEK LUB JEGO BRAK"
+
+            # interpretacja kierunku
+
+            if korelacja > 0:
+                # dodatnia korelacja, gdzie rosna 2 zmienne
+                kierunek = "dodatnia"
+            elif korelacja < 0:
+                # ujemna korelacja, gdzie 1 zmienna rośnie, a druga maleje
+                kierunek = "ujemna"
+            else:
+                kierunek = "brak korelacji"
+
+            print(f'{kol1} vs {kol2}: {korelacja: .3f} ({silna} korelacja) {kierunek}')
