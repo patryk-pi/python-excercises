@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
-
+import scipy as sp
 import warnings
 
 from pandas.core.reshape import encoding
@@ -405,7 +405,29 @@ for kolumna in kolumny_numeryczne:
     print(f'Liczba wartości: {len(dane)}')
     print(f'Średnia: {dane.mean(): 3f}')
     print(f'Mediana: {dane.median(): 3f}')
-    print(f'Wariancja: {dane.var: 3f}')
+    print(f'Wariancja: {dane.var(): 3f}')
     print(f'Minimum: {dane.min(): 3f}')
     print(f'Maximum: {dane.max(): 3f}')
     print(f'Zakres: {dane.max() - dane.min(): 3f}')
+
+    from scipy import stats
+
+    # skewness asymetria rozkladu
+    skosnosc = stats.skew(dane)
+
+    # kurtoza splaszczenie rozkladu
+    kurtoza = stats.kurtosis(dane)
+
+    print(f'Skośność: {skosnosc: .3f}')
+
+    if abs(skosnosc) < 0.5:
+        print('Rozkład prawie symetryczny')
+    elif abs(skosnosc) > 0:
+        print('Rozkład prawostronnie skośny')
+    else:
+        print('Rozkład lewostronnie skośny')
+
+    print(f'Kurtoza: {kurtoza: .3f}')
+
+    if kurtoza > 0:
+        print('Rozkład szczytowy')
