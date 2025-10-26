@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-from tensorflow.keras.models import Sequential
+from tensorflpipow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 
 model = Sequential()
