@@ -321,3 +321,20 @@ with open('raport_analizy.txt', 'w', encoding = 'utf-8') as f:
     if 'alkohol' in df.columns:
         f.write(f'Średnia zawartość alkoholu: {df['alkohol'].mean(): 2f} \n')
         f.write(f'Mediana zawartości alkoholu: {df['alkohol'].median(): 2f} \n')
+
+
+def znajdz_piwa (df, min_ocena = None, max_alcohol = None, styl = None):
+    filter = pd.Series([True] * len(df))  # wszystkie piwa spełniają warunki
+    if min_ocena is not None:
+        filter &= df['ocena'] >= min_ocena
+    if max_alcohol is not None:
+        filter &= df['alkohol'] <= max_alcohol
+    if styl is not None:
+        filter &= df['styl'] == styl
+    return df[filter]
+
+
+if all(col in df.columns for col in ['ocena', 'alkohol', 'styl']):
+    print('\n Piwa z oceną > 4.0 i alkoholem < 6%')
+
+    print(znajdz_piwa(df, min_ocena = 4, max_alcohol = 6))
