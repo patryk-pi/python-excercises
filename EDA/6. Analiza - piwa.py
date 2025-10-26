@@ -392,3 +392,20 @@ if 'styl' in df.columns and len(kolumny_numeryczne) > 0:
         statystyki_styl = df.groupby('styl')[kolumna_num].agg(['mean', 'std', 'min', 'max']).round(2)
         print(f'\n analiza {kolumna_num.upper()} według stylów')
         print(statystyki_styl)
+
+# Szczegółowa analiza rozkładu danych
+
+print('\n' + '=' * 50)
+print('Szczegółowa analiza rozkładu danych')
+print('\n' + '=' * 50)
+
+for kolumna in kolumny_numeryczne:
+    print(f'\n ===== ANALIZA ROZKŁADU: {kolumna.upper()} ======')
+    dane = df[kolumna].dropna()
+    print(f'Liczba wartości: {len(dane)}')
+    print(f'Średnia: {dane.mean(): 3f}')
+    print(f'Mediana: {dane.median(): 3f}')
+    print(f'Wariancja: {dane.var: 3f}')
+    print(f'Minimum: {dane.min(): 3f}')
+    print(f'Maximum: {dane.max(): 3f}')
+    print(f'Zakres: {dane.max() - dane.min(): 3f}')
