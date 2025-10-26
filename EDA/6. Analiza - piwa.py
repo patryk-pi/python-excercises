@@ -3,6 +3,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
 
+import warnings
+
+warnings.filterwarnings('ignore')
 # 1. pobieranie danych
 
 url = "https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-31/beers.csv"
@@ -255,3 +258,50 @@ if 'styl' in df.columns and 'ocena' in df.columns and 'alkohol' in df.columns:
                     )
 
     plt.show()
+
+if len(kolumny_numeryczne) >= 2 and POKAZ_WYKRESY:
+    sns.pairplot(df[kolumny_numeryczne])
+
+    plt.suptitle('Pairplot zmiennych numerycznych', y = 1.02)
+
+    if ZAPISZ_WYKRESY:
+        plt.savefig('styl_piw_pairplot_wykresy.png',
+                    dpi = 300,
+                    bbox_inches = 'tight'
+                    )
+
+# CZYSZCZENIE DANYCH
+
+print("\n" + "=" * 50)
+print('Propozycje czyszczenia dancyh')
+print("\n" + "=" * 50)
+
+if 'goryczka' in df.columns and df['goryczka'].isnull().sum() > 0:
+    median_goryczka = df.groupby('styl')['goryczka'].transform('median')
+    df['goryczka_uzupełniona'] = df['goryczka'].fillna(median_goryczka)
+
+    print(f'Uzupełniono {df['goryczka'].isnull().sum()} brakujących wartosci goryczki')
+
+# USUWANIE DUPLIKATOW
+
+if duplikaty.sum() > 0:
+    df_cleaned = df.drop_duplicates()
+
+    print(f'Usunieto {duplikaty.sum()} duplikatów')
+
+else:
+    df.cleaned = df.copy()
+
+df_cleaned['kategoria_alkohol'] = pd.cut(df_cleaned['alkohol'],
+                                         # granice przedzialow
+                                         bins = [0, 5, 6.5, 10],
+                                         # nazwy kategorii
+                                         labels = ['lekkie', 'średnie', 'mocne'])
+
+print("\n Kategorie alkoholowe:")
+print(df_cleaned['kategoria_alkohol'].value_counts())
+
+df_cleaned.to_csv('piwa_przetworzone', index = False)
+print("\n" + "=" * 50)
+print("\n" + "=" * 50)
+print("\n" + "=" * 50)

@@ -1,0 +1,9 @@
+nazwa,alkohol,goryczka,ocena,styl,goryczka_uzupełniona,kategoria_alkohol
+IPA,6.5,65.0,4.2,IPA,65.0,średnie
+Lager,5.0,,3.8,Lager,30.0,lekkie
+Stout,7.2,45.0,4.5,Ciemne,45.0,mocne
+Pilsner,4.8,30.0,3.9,Lager,30.0,lekkie
+Wheat,5.2,15.0,3.7,,15.0,średnie
+Porter,5.8,40.0,4.1,Ciemne,40.0,średnie
+Ale,5.5,35.0,4.0,Jasne,35.0,średnie
+Bock,6.8,25.0,4.3,Ciemne,25.0,mocne
