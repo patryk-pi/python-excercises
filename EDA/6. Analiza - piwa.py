@@ -195,9 +195,9 @@ if 'alkohol' in df.columns and 'nazwa' in df.columns:
 
 print("\n" + "=" * 50)
 
-POKAZ_WYKRESY = False
+POKAZ_WYKRESY = True
 
-ZAPISZ_WYKRESY = False
+ZAPISZ_WYKRESY = True
 
 print("\n" + "=" * 50)
 print('ANALIZA OUTLIERÓW')
@@ -445,3 +445,135 @@ for kolumna in kolumny_numeryczne:
 
     for p, wartosc in zip(percentyle, wartosci_percentyli):
         print(f' {p}% danych ma wartosć {wartosc: .3f}')
+
+if POKAZ_WYKRESY and len(kolumny_numeryczne) > 0:
+    print('\n ===== TWORZENIE ZAAWANSOWANYCH WYKRESÓW =====')
+
+    for kolumna in kolumny_numeryczne:
+        plt.figure(figsize = (15, 5))
+
+        plt.subplot(1, 3, 1)
+
+        sns.histplot(data = df, x = kolumna, kde = True, bins = 15)
+        plt.title(f'Histogram {kolumna}')
+        plt.axvline(df[kolumna].mean(), color = 'r', linestyle = '--', label = "Średnia")
+        plt.legend()  # pokaz legende
+
+        # pokazuje mediane, kwartyle, outliery
+        sns.boxplot(data = df, y = kolumna)
+        plt.title(f'Boxplot {kolumna}')
+
+        plt.subplot(1, 3, 3)  # liczba wierszy, liczba kolumn, numer wykresu
+        stats.probplot(df[kolumna].dropna(), dist = 'norm', plot = plt)
+        plt.title(f'Q - Q plot {kolumna}')
+
+        plt.tight_layout()
+        if ZAPISZ_WYKRESY:
+            plt.savefig(f'Rozkład {kolumna}.png')
+
+        # plt.show()
+
+print("\n" + "=" * 50)
+print("SZCZEGÓŁOWA ANALIZA ROZKŁADU DANCYH")
+print("=" * 50)
+for kolumna in kolumny_numeryczne:
+    print(f"\n ==== ANALIZA ROZKŁADU: {kolumna.upper()} ====")
+    dane = df[kolumna].dropna()  # usuwamy brakujące wartosci
+    print(f"Liczba wartości: {len(dane)}")  # ile mamy niepustych wartosci
+    print(f"Średnia: {dane.mean():.3f}")  # srednia
+    print(f"Odchylenie standardowe: {dane.std():.3f}")  # odchylenie standardowe
+    print(f"Mediana: {dane.median():.3f}")  # mediana
+    print(f"Wariancja: {dane.var():.3f}")
+    print(f"Minimum: {dane.min():.3f}")
+    print(f"Maximum: {dane.max():.3f}")
+    print(f"Zakres: {dane.max() - dane.min():.3f}")  # roznica medzy max i min
+    from scipy import stats
+
+    # skosnosc (skewness) asymetria rozkladu
+    skoscnosc = stats.skew(dane)
+    # kurtoza (kurtosis) splaszczenie rozkladu
+    kurtoza = stats.kurtosis(dane)
+    print(f"Skośność: {skoscnosc:.3f}")
+    if abs(skoscnosc) < 0.5:
+        print("Rozkład prawie symetryczny")
+    elif skoscnosc > 0:
+        print("Rozkład prawostronnie skośny (wiecej malych warotsci)")
+    else:
+        print("Rozkład lewostronnie skośny (wiecej duzych wartosci)")
+    print(f"Kurtoza: {kurtoza:.3f}")
+    if kurtoza > 0:
+        print(" Rozkład szczytowy")
+    elif kurtoza < 0:
+        print(" Rozkład szpłaszczony")
+    else:
+        print(" Rozkład normalny")
+    percentyle = [5, 25, 50, 75, 95]
+    wartosci_percentyli = np.percentile(dane, percentyle)
+    print('\nPercentyle:')
+    for p, wartosc in zip(percentyle, wartosci_percentyli):
+        print(f" {p}% danych ma wartość {wartosc:.3f}")
+# zaawansowane wykresy rozkladu
+if POKAZ_WYKRESY and len(kolumny_numeryczne) > 0:
+    print("\nTWORZENIE ZAAWANSOWANYCH WYKRESÓW")
+    for kolumna in kolumny_numeryczne:
+        # figura o wym 15 cali i wysokosc 5 claai
+        plt.figure(figsize = (15, 5))
+        plt.subplot(1, 3, 1)  # 1 wiersz, 3 kolumny, 1 pozycja
+        sns.histplot(data = df, x = kolumna, kde = True, bins = 15)
+        plt.title(f'Histogram{kolumna}')
+        plt.axvline(df[kolumna].mean(), color = 'red', linestyle = '--', label = "Średnia")
+        plt.legend()  # pokazuje legednde z opisami linii
+        # pokazuje mediane, kwartyle, outliery
+        sns.boxplot(data = df, y = kolumna)
+        plt.title(f'Boxplot {kolumna}')
+        plt.subplot(1, 3, 3)  # liczba wierszy, liczba kolumn, nr wykresu
+        stats.probplot(df[kolumna].dropna(), dist = "norm", plot = plt)
+        plt.title(f'Q - Q plot {kolumna}')
+        plt.tight_layout()
+        if ZAPISZ_WYKRESY:
+            plt.savefig(f"rozkład {kolumna}.png", dpi = 300, bbox_inches = 'tight')
+
+        # plt.show()
+
+print("\n" + "=" * 50)
+print("ANALIZA CZASOWA, JESLI WYSTEPUJE")
+print("=" * 50)
+# sprawdzamy czy w naszych danych sa dane czas/data
+
+kolumny_daty = df.select_dtypes(include = ['datetime64']).columns
+if len(kolumny_daty) > 0:
+    print("Znaleziono kolumny daty/czasu")
+    for kolumna_data in kolumny_daty:
+        print(f"\n ANALIZA CZASOWA: {kolumna_data}")
+        df[kolumna_data] = pd.to_datatime(df[kolumna_data])
+        print(f"Zakres czasowy: od {df[kolumna_data].min()} do {df[kolumna_data].max()}")
+        print(f"Całkowity okres: {df[kolumny_data].max() - df[kolumny_data].min()}")
+        print(f"Liczba unikalnych dat: {df[kolumna_data].nunique()}")
+        # analiza sezonowosci
+        df['rok'] = df[kolumna_data].dt.year  # wyciagamy rok z daty, zeby zobaczyc terndy roczne
+        df['miesiac'] = df[kolumna_data].dt.month  # sezonowosc miesieczna
+        df['dzien'] = df[kolumna_data].dt.day  # analiza dzienna
+        print("\nRozkład wedlug roku: ")
+        print(df['rok'].value_counts().sort_index())
+        print("\nRozklad wedlug miesiaca")
+        print(df['miesiac'].value_counts().sort_index())
+else:
+    print("Brak kolumna datatime w danych")
+
+# przykladowa dane datatime
+
+if len(kolumny_daty) == 0 and 'ocena' in df.columns:
+    print("\n TWORZENIE PRZYKLADOWEJ ANALIZY CZASOWEJ")
+
+    # dodajemy sztuczna kolumne daty zacyznaja od 1 stycznia
+    daty_start = pd.to_datetime('2023-01-01')
+
+    # przypisujemy dla kazdego piwa kolejny dzien
+    df['data_przykladowa'] = [daty_start + pd.Timedelta(days = x) for x in range(len(df))]
+    df['miesiac'] = df['data_przykladowa'].dt.month
+    ocena_miesiac = df.groupby('miesiac')['ocena'].mean()
+
+    print("Średnia ocena wedlug miesiaca:")
+
+    for miesiac, ocena in ocena_miesiac.items():
+        print(f"Miesiąc {miesiac}: {ocena:.2f}")
