@@ -431,3 +431,17 @@ for kolumna in kolumny_numeryczne:
 
     if kurtoza > 0:
         print('Rozkład szczytowy')
+
+    elif kurtoza < 0:
+        print('Rozkład spłaszczony')
+
+    else:
+        print('Rozkład normalny')
+
+    percentyle = [5, 25, 50, 75, 95]
+
+    wartosci_percentyli = np.percentile(dane, percentyle)
+    print('\n Percentyle')
+
+    for p, wartosc in zip(percentyle, wartosci_percentyli):
+        print(f' {p}% danych ma wartosć {wartosc: .3f}')
