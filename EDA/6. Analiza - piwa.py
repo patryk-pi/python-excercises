@@ -226,7 +226,7 @@ if "styl" in df.columns and 'ocena' in df.columns:
 
     print(styl_stats)
 
-if 'styl' in df.columns and 'ocena' in df.columns and 'alkohol' in df.columns:
+if 'styl' in df.columns and 'ocena' in df.columns and 'alkohol' in df.columns and POKAZ_WYKRESY:
     plt.figure(figsize = (12, 6))
 
     styl_grouped = df.groupby('styl').agg({
@@ -382,3 +382,13 @@ if len(kolumny_numeryczne) >= 2:
                 kierunek = "brak korelacji"
 
             print(f'{kol1} vs {kol2}: {korelacja: .3f} ({silna} korelacja) {kierunek}')
+
+# analiza jak styl piwa wpływa na cechy numeryczne
+
+if 'styl' in df.columns and len(kolumny_numeryczne) > 0:
+    print('\n ===== WPŁYW STYLU NA CECHY NUMERYCZNE =====')
+
+    for kolumna_num in kolumny_numeryczne:
+        statystyki_styl = df.groupby('styl')[kolumna_num].agg(['mean', 'std', 'min', 'max']).round(2)
+        print(f'\n analiza {kolumna_num.upper()} według stylów')
+        print(statystyki_styl)
