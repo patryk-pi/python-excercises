@@ -1,0 +1,8 @@
+Raport analizy piw 
+================================================== 
+Liczba przeanalizowanych piw: 9 
+Liczba cech: 6 
+Średnia ocena:  4.077778 
+Mediana oceny:  4.100000 
+Średnia zawartość alkoholu:  5.922222 
+Mediana zawartości alkoholu:  5.800000 

@@ -5,6 +5,8 @@ import seaborn as sns
 
 import warnings
 
+from pandas.core.reshape import encoding
+
 warnings.filterwarnings('ignore')
 # 1. pobieranie danych
 
@@ -305,3 +307,17 @@ df_cleaned.to_csv('piwa_przetworzone', index = False)
 print("\n" + "=" * 50)
 print("\n" + "=" * 50)
 print("\n" + "=" * 50)
+
+with open('raport_analizy.txt', 'w', encoding = 'utf-8') as f:
+    f.write("Raport analizy piw \n")
+    f.write(f'{"=" * 50} \n')
+    f.write(f'Liczba przeanalizowanych piw: {len(df)} \n')
+    f.write(f'Liczba cech: {len(df.columns)} \n')
+
+    if 'ocena' in df.columns:
+        f.write(f'Średnia ocena: {df['ocena'].mean(): 2f} \n')
+        f.write(f'Mediana oceny: {df['ocena'].median(): 2f} \n')
+
+    if 'alkohol' in df.columns:
+        f.write(f'Średnia zawartość alkoholu: {df['alkohol'].mean(): 2f} \n')
+        f.write(f'Mediana zawartości alkoholu: {df['alkohol'].median(): 2f} \n')
