@@ -30,12 +30,12 @@ def separator (text):
 # print(f"Wariancja:            {np.var(wyniki, ddof = 1): .2f} pkt^2")
 # print(f"Odchylenie std:       {np.var(wyniki, ddof = 1): .2f} pkt")
 #
-# # Kwartyle
-# print("\n2. KWARTYLE")
-# q1 = np.percentile(wyniki, 25)
-# q2 = np.percentile(wyniki, 50)
-# q3 = np.percentile(wyniki, 75)
-# iqr = q3 - q1
+# Kwartyle
+print("\n2. KWARTYLE")
+q1 = np.percentile(wyniki, 25)
+q2 = np.percentile(wyniki, 50)
+q3 = np.percentile(wyniki, 75)
+iqr = q3 - q1
 #
 # print("=" * 40)
 # print(f"Q1 (25%):              {q1: .2f} pkt")
@@ -95,16 +95,35 @@ sns.set_style("whitegrid")
 fig, axes = plt.subplots(2, 2, figsize = (14, 10))
 fig.suptitle("Analiza wizualna Wyników Testu", fontsize = 16, fontweight = "bold")
 
-axes[0, 0].hist(wyniki, bins = 20, color = "skyblue", alpha = 0.7, edgecolor = "black", density = False)
-axes[0, 0].axvline(np.mean(wyniki), color = "red", linestyle = "--", alpha = 0.7, linewidth = 2,
-                   label = f"Średnia: {np.mean(wyniki): .2f}")
-axes[0, 0].axvline(np.median(wyniki), color = "green", linestyle = "--", alpha = 0.7, linewidth = 2,
-                   label = f"Mediana: {np.median(wyniki): .2f}")
-
-axes[0, 0].legend()
-axes[0, 0].set_xlabel("Wynik [pkt]")
+# Histogram z krzywą gęstości
+axes[0, 0].hist(wyniki, bins = 8, color = "skyblue", alpha = 0.7, edgecolor = "black", density = True)
+axes[0, 0].axvline(np.mean(wyniki), color = "red", linestyle = "--", linewidth = 2,
+                   label = f"Średnia: {np.mean(wyniki):.2f}")
+axes[0, 0].axvline(np.median(wyniki), color = "green", linestyle = "--", linewidth = 2,
+                   label = f"Mediana: {np.median(wyniki):.2f}")
+axes[0, 0].set_xlabel("Wyniki [pkt]")
 axes[0, 0].set_ylabel("Gęstość")
-axes[0, 0].set_title("Histogram z miarami tendencji centralnej")
+axes[0, 0].set_title("Histogram z miarami tendencji cntralnej")
+axes[0, 0].legend()
 
+# Wykres słupkowy
+unique, counts = np.unique(wyniki, return_counts = True)
+axes[1, 0].bar(unique, counts, color = "skyblue", alpha = 0.7, edgecolor = "black")
+axes[1, 0].set_xlabel("Wyniki [pkt]")
+axes[1, 0].set_ylabel("Częstość/Ilość")
+axes[1, 0].set_title("Rozkład częstości wyników")
+
+# Wykrywanie outlierów - wykres pudełkowy
+axes[0, 1].boxplot(wyniki)
+axes[0, 1].set_ylabel("Wyniki [pkt]")
+axes[0, 1].set_title("Wykrywanie outlierów")
+
+# Test normalności
+axes[0, 1].text(1.1, q1, f"Q1: {q1:.2f}")
+axes[0, 1].text(1.1, q2, f"Q2: {q2:.2f}", color = "red")
+axes[0, 1].text(1.1, q3, f"Q3: {q3:.2f}")
+
+stats.probplot(wyniki, dist = "norm", plot = axes[1, 1])
+axes[1, 1].set_title("Test normalności")
 plt.savefig("statystyka_opisowa_wizualizacja.png", dpi = 300)
 plt.show()
