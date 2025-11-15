@@ -89,3 +89,22 @@ elif df["wynik"].skew() < 0:
     print("Rozkład jest skośny lewostronnie (lewy ogon dłuższy)")
 else:
     print("Rozkład jest symetryczny")
+
+sns.set_style("whitegrid")
+
+fig, axes = plt.subplots(2, 2, figsize = (14, 10))
+fig.suptitle("Analiza wizualna Wyników Testu", fontsize = 16, fontweight = "bold")
+
+axes[0, 0].hist(wyniki, bins = 20, color = "skyblue", alpha = 0.7, edgecolor = "black", density = False)
+axes[0, 0].axvline(np.mean(wyniki), color = "red", linestyle = "--", alpha = 0.7, linewidth = 2,
+                   label = f"Średnia: {np.mean(wyniki): .2f}")
+axes[0, 0].axvline(np.median(wyniki), color = "green", linestyle = "--", alpha = 0.7, linewidth = 2,
+                   label = f"Mediana: {np.median(wyniki): .2f}")
+
+axes[0, 0].legend()
+axes[0, 0].set_xlabel("Wynik [pkt]")
+axes[0, 0].set_ylabel("Gęstość")
+axes[0, 0].set_title("Histogram z miarami tendencji centralnej")
+
+plt.savefig("statystyka_opisowa_wizualizacja.png", dpi = 300)
+plt.show()
