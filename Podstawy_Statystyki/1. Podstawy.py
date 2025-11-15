@@ -15,7 +15,7 @@ def separator (text):
 separator("STATYSTYKA OPISOWA - PODSTAWOWE MIARY")
 
 # Miary tendencji centralnej
-print("1. MIARY TENDENCJI CENTRALNEJ")
+print("2. MIARY TENDENCJI CENTRALNEJ")
 print("=" * 40)
 print(f"Średnia arytmetyczna: {np.mean(wyniki): .2f} pkt")
 print(f"Mediana:              {np.median(wyniki): .2f} pkt")
@@ -29,3 +29,11 @@ print(f"Maksimum:             {np.max(wyniki): .2f} pkt")
 print(f"Rozstęp:              {np.ptp(wyniki): .2f} pkt")
 print(f"Wariancja:            {np.var(wyniki, ddof = 1): .2f} pkt^2")
 print(f"Odchylenie std:       {np.var(wyniki, ddof = 1): .2f} pkt")
+
+# Kwartyle
+print("\n2. KWARTYLE")
+print("=" * 40)
+print(f"Q1 (25%):              {np.percentile(wyniki, 25): .2f} pkt")
+print(f"Q2 (50% - mediana):    {np.percentile(wyniki, 50): .2f} pkt")
+print(f"Q3 (75%):              {np.percentile(wyniki, 75): .2f} pkt")
+print(f"IQR (Q3 - Q1):         {np.percentile(wyniki, 75) - np.percentile(wyniki, 25): .2f} pkt")
