@@ -32,8 +32,13 @@ print(f"Odchylenie std:       {np.var(wyniki, ddof = 1): .2f} pkt")
 
 # Kwartyle
 print("\n2. KWARTYLE")
+q1 = np.percentile(wyniki, 25)
+q2 = np.percentile(wyniki, 50)
+q3 = np.percentile(wyniki, 75)
+iqr = q3 - q1
+
 print("=" * 40)
-print(f"Q1 (25%):              {np.percentile(wyniki, 25): .2f} pkt")
-print(f"Q2 (50% - mediana):    {np.percentile(wyniki, 50): .2f} pkt")
-print(f"Q3 (75%):              {np.percentile(wyniki, 75): .2f} pkt")
-print(f"IQR (Q3 - Q1):         {np.percentile(wyniki, 75) - np.percentile(wyniki, 25): .2f} pkt")
+print(f"Q1 (25%):              {q1: .2f} pkt")
+print(f"Q2 (50% - mediana):    {q2: .2f} pkt")
+print(f"Q3 (75%):              {q3: .2f} pkt")
+print(f"IQR (Q3 - Q1):         {iqr: .2f} pkt")
