@@ -14,8 +14,18 @@ def separator (text):
 
 separator("STATYSTYKA OPISOWA - PODSTAWOWE MIARY")
 
+# Miary tendencji centralnej
 print("1. MIARY TENDENCJI CENTRALNEJ")
 print("=" * 40)
 print(f"Średnia arytmetyczna: {np.mean(wyniki): .2f} pkt")
 print(f"Mediana:              {np.median(wyniki): .2f} pkt")
-print(f"Moda:                 {stats.mode(wyniki, keepdims = True).mode[0]} pkt")
+print(f"Moda:                  {stats.mode(wyniki, keepdims = True).mode[0]} pkt")
+
+# Miary rozproszenia
+print("\n1. MIARY ROZPROSZENIA")
+print("=" * 40)
+print(f"Minimum:              {np.min(wyniki): .2f} pkt")
+print(f"Maksimum:             {np.max(wyniki): .2f} pkt")
+print(f"Rozstęp:              {np.ptp(wyniki): .2f} pkt")
+print(f"Wariancja:            {np.var(wyniki, ddof = 1): .2f} pkt^2")
+print(f"Odchylenie std:       {np.var(wyniki, ddof = 1): .2f} pkt")
