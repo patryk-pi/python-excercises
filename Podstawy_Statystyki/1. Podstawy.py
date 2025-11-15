@@ -42,3 +42,18 @@ print(f"Q1 (25%):              {q1: .2f} pkt")
 print(f"Q2 (50% - mediana):    {q2: .2f} pkt")
 print(f"Q3 (75%):              {q3: .2f} pkt")
 print(f"IQR (Q3 - Q1):         {iqr: .2f} pkt")
+
+# Wykrywanie outlierów
+print("\n4. WYKRYWANIE WARTOŚCI ODSTAJĄCYCH")
+print("=" * 40)
+dolna_granica = q1 - 1.5 * iqr
+gorna_granica = q3 + 1.5 * iqr
+
+print(f"Dolna granica:          {dolna_granica: .2f} pkt")
+print(f"Górna granica:          {gorna_granica: .2f} pkt")
+
+outliery = wyniki[(wyniki < dolna_granica) | (wyniki > gorna_granica)]
+if len(outliery) > 0:
+    print(f"Wykryte outliery:      {outliery}")
+else:
+    print("Brak wartości odstających")
