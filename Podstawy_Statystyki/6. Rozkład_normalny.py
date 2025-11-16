@@ -1,3 +1,9 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+from scipy.special import comb
+
 print("\n" + "=" * 60)
 print("ROZKŁAD NORMALNY - N(μ=178, σ=7)")
 print("=" * 60)
